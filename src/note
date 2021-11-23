@@ -1,0 +1,10 @@
+componentDidMount() {
+    axios
+      .get(
+        "https://restcountries.com/v2/all?fields=name,capital,flags,languages,population"
+      )
+      .then((res) => {
+        this.setState({ data: res.data });
+        console.log(this.state.data);
+      });
+  }

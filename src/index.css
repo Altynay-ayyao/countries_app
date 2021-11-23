@@ -1,13 +1,50 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Dosis&family=Lato:wght@100;400;700&display=swap");
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "Dosis", sans-serif;
+  background-color: #fafafa;
+}
+h2 {
+  font-family: "Dosis", sans-serif;
+  font-size: 1em;
+}
+p {
+  font-family: "Lato", sans-serif;
+  font-size: 0.6em;
+}
+span {
+  font-weight: bold;
+}
+.flag-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.flag-single {
+  background-color: snow;
+  box-shadow: 0 0 5px rgb(121, 121, 121);
+  border: 1px solid #444444;
+  width: 10em;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  margin: 0.6rem;
+  /*filter: grayscale(100%);*/
+  transition: all 0.5s;
+  position: relative;
+  padding: 0.6em 0.4em 0.4em 0.4em;
+}
+
+.flag-single img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  right: -5px;
 }
