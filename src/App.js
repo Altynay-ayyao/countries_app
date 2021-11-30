@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./Home";
-import CountryList from "./CountryList";
+import CountriesList from "./CountriesList";
 import {
   BrowserRouter,
   Link,
@@ -31,7 +31,7 @@ const App = () => {
 
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/countries" element={<CountryList />} />
+        <Route path="/countries" element={<CountriesList />} />
         <Route path="/countries/:name" element={<RouteWrapper />} />
       </Routes>
     </BrowserRouter>

@@ -1,70 +1,43 @@
-import React, { Component } from "react";
-import axios from "axios";
-import "./isLoading.css";
-import CountryCard from "./CountryCard";
-import { Outlet } from "react-router-dom";
+import React from "react";
+import number from "easy-number-formatter";
+import { Link } from "react-router-dom";
 
-class CountriesList extends Component {
-  state = {
-    data: [],
-    searchInput: "",
-    isLoading: true,
-  };
-
-  componentDidMount() {
-    axios
-      .get(
-        "https://restcountries.com/v2/all?fields=name,capital,flags,languages,currencies,population"
-      )
-      .then((res) => {
-        this.setState({ data: res.data, isLoading: false });
-        console.log(this.state.data);
-      });
-  }
-
-  searchHandler(e) {
-    this.setState({
-      searchInput: e.target.value,
-    });
-    console.log(this.state.searchInput);
-  }
-
-  render() {
-    if (this.state.isLoading) {
-      return (
-        <div>
-          <div className="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      );
-    }
-
-    if (!this.state.isLoading) {
-      return (
-        <div className="countries">
-          <Outlet />
-          <input
-            type="text"
-            name="search"
-            onChange={this.searchHandler.bind(this)}
-          />
-          {this.state.data
-            .filter((c) => {
-              return c.name
-                .toLowerCase()
-                .includes(this.state.searchInput.toLowerCase());
-            })
-            .map((c) => (
-              <CountryCard {...c} key={c.name} />
+const CountriCard = ({
+  name,
+  capital,
+  languages,
+  currencies,
+  population,
+  flags,
+}) => {
+  return (
+    <Link to={capital}>
+      <div className="country" key={name}>
+        <h2> {name}</h2> <h3>{capital}</h3>
+        <img src={flags.png} alt={name} />
+        <div className="cardContent">
+          <p>
+            Language(s):
+            {languages.map((lang, i) => (
+              <span key={i}> {lang.name} </span>
             ))}
+          </p>
+          <p>
+            Currencies:
+            {currencies.map((mon, i) => (
+              <span key={i}>
+                {mon.name} - {mon.symbol}
+              </span>
+            ))}
+          </p>
+          <p>
+            Population:
+            <span className="low">{number.formatNumber(population)}</span>
+          </p>
         </div>
-      );
-    }
-  }
-}
+      </div>
+    </Link>
+  );
+};
 
-export default CountriesList;
+export default CountriCard;
