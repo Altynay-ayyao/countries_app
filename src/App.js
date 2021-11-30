@@ -1,90 +1,41 @@
-import React, { Component } from "react";
-import axios from "axios";
-import number from "easy-number-formatter";
-import "./isLoading.css";
+import React from "react";
+import Home from "./Home";
+import CountriesList from "./CountriesList";
+import {
+  BrowserRouter,
+  Link,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
+import CountrySingle from "./CountrySingle";
 
-class App extends Component {
-  state = {
-    data: [],
-    searchInput: "",
-    isLoading: true,
-  };
-  componentDidMount() {
-    axios
-      .get(
-        "https://restcountries.com/v2/all?fields=name,capital,flags,languages,currencies,population"
-      )
-      .then((res) => {
-        this.setState({ data: res.data, isLoading: false });
-        console.log(this.state.data);
-      });
-  }
+const RouteWrapper = (props) => {
+  const params = useParams();
+  return <CountrySingle params={params} {...props} />;
+};
 
-  searchHandler = (e) => {
-    this.setState({ searchInput: e.target.value });
-    console.log(this.state.data);
-  };
-  render() {
-    if (this.state.isLoading) {
-      return (
-        <div class="lds-default">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      );
-    }
+const App = () => {
+  return (
+    <BrowserRouter>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/countries">Countries</Link>
+          </li>
+        </ul>
+      </nav>
 
-    if (!this.state.isLoading) {
-      return (
-        <>
-          <div className="flag-wrap">
-            <input type="text" name="search" onChange={this.searchHandler} />
-            {this.state.data
-              .filter((c) => {
-                return c.name
-                  .toLowerCase()
-                  .includes(this.state.searchInput.toLowerCase());
-              })
-              .map((country) => (
-                <div className="flag-single" key={country.name}>
-                  <h2>{country.name}</h2>
-
-                  <p>
-                    capital: <span>{country.capital}</span>
-                  </p>
-
-                  <p>
-                    language(s):{" "}
-                    {country.languages.map((lang, i) => (
-                      <span key={i}>{lang.name} </span>
-                    ))}
-                  </p>
-
-                  <p>
-                    population:
-                    <span className="population">
-                      {country.population.toLocaleString("fr")}
-                    </span>
-                  </p>
-                  <p>
-                    Currencies:
-                    {country.currencies.map((mon, i) => (
-                      <span key={i}>
-                        {mon.name} - {mon.symbol}
-                      </span>
-                    ))}
-                  </p>
-
-                  <img src={country.flags.svg} alt="#" />
-                </div>
-              ))}
-          </div>
-        </>
-      );
-    }
-  }
-}
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/countries" element={<CountriesList />} />
+        <Route path="/countries/:name" element={<RouteWrapper />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
