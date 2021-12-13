@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./index.css";
 
 function getCountry(capital) {
   return axios.get(`https://restcountries.com/v2/capital/${capital}`);
@@ -37,7 +38,7 @@ class CountrySingle extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <div>
+        <div className="countrySingle">
           <div className="lds-ring">
             <div></div>
             <div></div>
@@ -50,7 +51,7 @@ class CountrySingle extends Component {
 
     if (!this.state.isLoading) {
       return (
-        <div>
+        <div className="countrySingle">
           Right now it is {this.state.weather.main.temp} degrees in{" "}
           {this.state.country.capital}
           <img

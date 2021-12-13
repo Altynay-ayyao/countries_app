@@ -1,7 +1,7 @@
 import React from "react";
 
 const Home = () => {
-  return <div>Home will be here!</div>;
+  return <main className="countriesBall"></main>;
 };
 
 export default Home;
