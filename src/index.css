@@ -1,81 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300&display=swap");
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
-
 body {
-  margin: 2rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.country img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  box-shadow: 0 0 5px #333;
-}
-
-.countries {
-  display: grid;
-  grid-gap: 1rem;
-}
-
-.country {
-  box-shadow: 0 0 5px rgb(92, 92, 92);
-  border-radius: 5px;
+  background-color: #c2b0c9;
+  font-family: "Ubuntu", sans-serif;
   position: relative;
 }
 
-.country h2,
-.country h3 {
-  background-color: rgb(106, 106, 106);
-  padding: 1rem;
-  margin: 0;
-  color: white;
+a {
+  text-decoration: none;
+  font-style: italic;
 }
 
-.country h3 {
-  padding: 0 1rem 1rem;
+header {
+  background-color: #350b40;
+  width: 100vw;
+  height: 10vh;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+}
+
+header a {
+  color: white;
+  font-size: 2rem;
+  font-size: 20px;
+  font-style: italic;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.countries {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.country {
+  max-width: 24vw;
+  width: 20vw;
+  min-height: 200px;
+  background-color: white;
+  flex-grow: 2;
+  margin: 10px;
+  position: relative;
+  transition: ease-in-out;
+  transition-duration: 0.3s;
+}
+.country:hover {
+  scale: 1.05;
+
+  box-shadow: inset 5px 5px 10px #ad6c80, inset -5px -5px 10px #ffeded;
+}
+.title {
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  padding-top: 10px;
+  min-height: 3rem;
+  padding-bottom: 5px;
+  height: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h2,
+h3 {
+  text-align: left;
+  color: whitesmoke;
+  margin-left: 10px;
+  z-index: 100;
 }
 
 .cardContent {
-  padding: 1rem;
+  margin-top: 10px;
+  padding-left: 10px;
+  height: 3vw;
+}
+.country img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
 
-.cardContent span {
-  font-weight: 700;
-  margin-right: 1rem;
-}
-.low {
-  text-transform: lowercase;
+.countriesBall {
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
 }
 
-@media (min-width: 575.98px) {
-  .countries {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 1rem;
+.countriesBall {
+  background-image: url("./countries.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40%;
+}
+
+.countrySingle {
+  border: solid 2px black;
+  background-color: rgba(238, 174, 202, 1);
+  text-align: center;
+}
+
+input {
+  width: 15vw;
+  height: 30px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 5px;
+  color: #0d1321;
+  position: absolute;
+  z-index: 3;
+  left: 3vw;
+  top: 9px;
+}
+
+input:focus {
+  width: 30vw;
+  left: 35vw;
+  background-color: white;
+  font-size: 18px;
+}
+main {
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* loader animation */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #0d1321;
+  border-color: #0d1321 transparent #0d1321 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
   }
-}
-
-@media (min-width: 767.98px) {
-  .countries {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
-  }
-}
-
-@media (min-width: 1199.98px) {
-  .countries {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1rem;
+  100% {
+    transform: rotate(360deg);
   }
 }

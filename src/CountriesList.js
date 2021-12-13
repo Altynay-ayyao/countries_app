@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
+import { Component } from "react";
 import axios from "axios";
-import "./isLoading.css";
 import CountryCard from "./CountryCard";
-import { Outlet } from "react-router-dom";
+import IsLoading from "./IsLoading";
+import Input from "./Input";
 
 class CountriesList extends Component {
   state = {
@@ -14,7 +15,7 @@ class CountriesList extends Component {
   componentDidMount() {
     axios
       .get(
-        "https://restcountries.com/v2/all?fields=name,capital,flags,languages,currencies,population"
+        "https://restcountries.com/v2/all?fields=name,capital,flags,languages,currencies,population,region"
       )
       .then((res) => {
         this.setState({ data: res.data, isLoading: false });
@@ -22,46 +23,31 @@ class CountriesList extends Component {
       });
   }
 
-  searchHandler(e) {
+  searchHandler(event) {
     this.setState({
-      searchInput: e.target.value,
+      searchInput: event.target.value,
     });
-    console.log(this.state.searchInput);
   }
 
   render() {
     if (this.state.isLoading) {
+      return <IsLoading />;
+    } else {
+      // Filtering data using input
+      const countriesFilter = this.state.data.filter((c) => {
+        return c.name
+          .toLowerCase()
+          .includes(this.state.searchInput.toLocaleLowerCase());
+      });
+      // saving in const all countries to show
+      const countriesListing = countriesFilter.map((c) => (
+        <CountryCard {...c} />
+      ));
       return (
-        <div>
-          <div className="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      );
-    }
-
-    if (!this.state.isLoading) {
-      return (
-        <div className="countries">
-          <Outlet />
-          <input
-            type="text"
-            name="search"
-            onChange={this.searchHandler.bind(this)}
-          />
-          {this.state.data
-            .filter((c) => {
-              return c.name
-                .toLowerCase()
-                .includes(this.state.searchInput.toLowerCase());
-            })
-            .map((whatever) => (
-              <CountryCard {...whatever} key={whatever.name} />
-            ))}
-        </div>
+        <>
+          <Input onChange={this.searchHandler.bind(this)} />
+          <div className="countries">{countriesListing}</div>
+        </>
       );
     }
   }

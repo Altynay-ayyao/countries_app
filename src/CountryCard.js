@@ -2,28 +2,32 @@ import React from "react";
 import number from "easy-number-formatter";
 import { Link } from "react-router-dom";
 
-const CountriCard = ({
-  name,
+const CountryCard = ({
   capital,
+  name,
   languages,
   currencies,
   population,
   flags,
+  region,
 }) => {
   return (
-    <Link to={capital}>
-      <div className="country" key={name}>
-        <h2> {name}</h2> <h3>{capital}</h3>
+    <div className="country" key={name}>
+      <Link to={capital}>
+        <div className="title">
+          <h2>{name}</h2>
+          <h3>{capital}</h3>
+        </div>
         <img src={flags.png} alt={name} />
         <div className="cardContent">
           <p>
-            Language(s):
+            Language(s):{" "}
             {languages.map((lang, i) => (
-              <span key={i}> {lang.name} </span>
+              <span key={i}>{lang.name} </span>
             ))}
           </p>
           <p>
-            Currencies:
+            Currencies:{" "}
             {currencies.map((mon, i) => (
               <span key={i}>
                 {mon.name} - {mon.symbol}
@@ -31,13 +35,14 @@ const CountriCard = ({
             ))}
           </p>
           <p>
-            Population:
-            <span className="low">{number.formatNumber(population)}</span>
+            Continental affiliation: <span>{region}</span>
+          </p>
+          <p>
+            Population: <span> {number.formatNumber(population)} </span>
           </p>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
-
-export default CountriCard;
+export default CountryCard;
